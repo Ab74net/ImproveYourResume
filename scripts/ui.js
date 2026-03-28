@@ -76,14 +76,14 @@ function renderTextStack(items, emptyText) {
 
 function scoreRingClass(score) {
   if (score >= 75) {
-    return "score-ring";
+    return "score-badge";
   }
 
   if (score >= 50) {
-    return "score-ring score-ring--mid";
+    return "score-badge score-ring--mid";
   }
 
-  return "score-ring score-ring--low";
+  return "score-badge score-ring--low";
 }
 
 export function getDomElements() {

@@ -3,236 +3,204 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume Reviewer Studio</title>
-  <link rel="stylesheet" href="./styles/base.css" />
-  <link rel="stylesheet" href="./styles/layout.css" />
-  <link rel="stylesheet" href="./styles/components.css" />
+  <title>Resume Reviewer | Built for Hokies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/home.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <header class="hero">
-      <div class="hero__eyebrow">Stage 1 Frontend Refactor | <a href="demo.html" style="color: inherit; text-decoration: underline;">Try Demo Mode</a></div>
-      <h1>Resume Reviewer Studio</h1>
-      <p class="hero__summary">
-        Upload a resume, target a role and company, and get structured feedback
-        on keywords, weak bullets, and practical next steps.
-      </p>
-      <div class="hero__chips" aria-label="Key capabilities">
-        <span class="chip">Role presets</span>
-        <span class="chip">Company targeting</span>
-        <span class="chip">PDF upload</span>
-        <span class="chip">Bullet rewrites</span>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">AI-POWERED | BUILT FOR HOKIES</div>
+        
+        <h1 class="hero-title">
+          <span class="hero-title__white">YOUR RESUME.</span>
+          <span class="hero-title__orange">LET'S REVIEW IT.</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+          Upload your resume and get an instant score, keyword analysis, and recruiter-style feedback powered by AI.
+        </p>
+        
+        <div class="upload-box">
+          <div class="upload-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+          </div>
+          <div class="upload-text">
+            <div class="upload-title">Upload Your Resume</div>
+            <div class="upload-subtitle">Privacy guaranteed</div>
+          </div>
+        </div>
+        
+        <a href="app.html" class="hero-cta">CHECK MY RESUME</a>
       </div>
-    </header>
+      
+      <div class="hero-cards">
+        <div class="resume-mockup resume-mockup--back">
+          <div class="mockup-avatar"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--short"></div>
+          <div class="mockup-line mockup-line--highlight"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--short"></div>
+        </div>
+        <div class="resume-mockup resume-mockup--front">
+          <div class="mockup-avatar"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--short"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--highlight"></div>
+          <div class="mockup-line"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-footer">
+      <div class="hero-footer-container">
+        <p class="trusted-text">Trusted by Hokies applying to:</p>
+        <div class="company-chips">
+          <span class="company-chip">Google</span>
+          <span class="company-chip">Microsoft</span>
+          <span class="company-chip">Amazon</span>
+          <span class="company-chip">Deloitte</span>
+          <span class="company-chip">Goldman Sachs</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <main class="app-grid">
-      <section class="panel panel--form" aria-labelledby="inputHeading">
-        <div class="panel__header">
-          <div>
-            <p class="panel__kicker">Workspace</p>
-            <h2 id="inputHeading">Build a targeted review</h2>
+  <!-- Feature Section 1: Resume Score -->
+  <section class="feature feature--light">
+    <div class="feature-container">
+      <div class="feature-content">
+        <div class="feature-label">RESUME SCORE</div>
+        <h2 class="feature-title">FIND OUT YOUR RESUME SCORE. SEE HOW YOU COMPARE.</h2>
+        <ul class="feature-list">
+          <li>See how your resume stacks up against strong applicants</li>
+          <li>Get a detailed section-by-section breakdown</li>
+          <li>Understand exactly where you're losing points</li>
+        </ul>
+        <div class="feature-ctas">
+          <a href="app.html" class="btn-try-it-feature">Try It Out</a>
+          <a href="#scoring-logic" class="more-info-link">More Info <span class="bounce-arrow">↓</span></a>
+        </div>
+      </div>
+      
+      <div class="feature-visual">
+        <div class="score-card">
+          <div class="donut-chart">
+            <svg viewBox="0 0 120 120" class="donut-svg">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#E5E5E5" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#E5751F" stroke-width="12" 
+                      stroke-dasharray="195 314" stroke-dashoffset="78.5" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="donut-score">62</div>
           </div>
-          <span class="status-badge">Prototype</span>
-        </div>
-
-        <div class="callout">
-          Phase 1 keeps the AI call in the browser for demo speed. Phase 2 moves
-          analysis behind AWS API Gateway and Lambda.
-        </div>
-
-        <div class="field-group">
-          <label for="apiKey">Model API key</label>
-          <input
-            type="password"
-            id="apiKey"
-            placeholder="Temporary for Stage 1"
-            autocomplete="off"
-          />
-          <p class="field-hint">
-            The key is only used for the current session and is not stored in
-            local storage.
-          </p>
-        </div>
-
-        <div class="field-grid">
-          <div class="field-group">
-            <label for="targetRole">Target role</label>
-            <select id="targetRole"></select>
-          </div>
-          <div class="field-group">
-            <label for="targetCompany">Target company</label>
-            <select id="targetCompany"></select>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label for="stemMajor">STEM major</label>
-          <select id="stemMajor"></select>
-          <p class="field-hint">
-            Optional: helps tailor feedback to your educational background and technical foundation.
-          </p>
-        </div>
-
-        <div class="field-grid field-grid--tight">
-          <div class="field-group">
-            <label for="sampleJobDescription">Sample job descriptions</label>
-            <select id="sampleJobDescription"></select>
-          </div>
-          <div class="field-group field-group--button">
-            <button type="button" class="secondary-btn" id="loadSampleBtn">
-              Load sample JD
-            </button>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <div class="field-row">
-            <label for="resumeText">Resume content</label>
-            <span class="field-meta" id="uploadStatus">Paste text or upload a PDF.</span>
-          </div>
-          <div class="upload-toolbar">
-            <button type="button" class="secondary-btn" id="uploadResumeBtn">
-              Upload PDF
-            </button>
-            <input type="file" id="resumeFile" accept=".pdf" hidden />
-            <span class="field-hint">Recommended max file size: 4 MB</span>
-          </div>
-          <textarea
-            id="resumeText"
-            placeholder="Paste your resume text here, or upload a PDF."
-          ></textarea>
-        </div>
-
-        <div class="field-group">
-          <label for="jobText">Job description</label>
-          <textarea
-            id="jobText"
-            placeholder="Paste the job description or load one of the sample prompts."
-          ></textarea>
-        </div>
-
-        <button type="button" class="primary-btn" id="analyzeBtn">
-          Analyze resume fit
-        </button>
-
-        <div class="error-banner" id="errorMsg" hidden></div>
-
-        <div class="loader" id="loader" hidden>
-          <div class="spinner" aria-hidden="true"></div>
-          <p>Analyzing your resume and generating targeted suggestions...</p>
-        </div>
-      </section>
-
-      <section class="panel panel--results" aria-labelledby="resultsHeading">
-        <div class="panel__header">
-          <div>
-            <p class="panel__kicker">Output</p>
-            <h2 id="resultsHeading">Analysis results</h2>
+          <div class="score-breakdown">
+            <div class="score-row">
+              <span class="score-label">Structure</span>
+              <span class="score-value">74</span>
+            </div>
+            <div class="score-divider"></div>
+            <div class="score-row">
+              <span class="score-label">Impact</span>
+              <span class="score-value">58</span>
+            </div>
+            <div class="score-divider"></div>
+            <div class="score-row">
+              <span class="score-label">Keywords</span>
+              <span class="score-value">61</span>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <div class="empty-state" id="emptyState">
-          <h3>Ready for the first pass</h3>
-          <p>
-            Add a resume, choose a role and company target, then run the review
-            to generate an ATS-style scorecard and rewrite suggestions.
-          </p>
-          <ul class="empty-state__list">
-            <li>Upload a PDF or paste plain-text resume content</li>
-            <li>Target a role like SWE, QA, or Data Analyst</li>
-            <li>Tailor feedback to Amazon, Google, Meta, or a general FAANG style</li>
-          </ul>
-        </div>
-
-        <div id="resultsView" hidden>
-          <div class="summary-grid">
-            <article class="summary-card summary-card--score">
-              <div class="score-ring" id="scoreBadge">0</div>
-              <div>
-                <p class="summary-card__eyebrow">Overall fit</p>
-                <h3 class="summary-card__title">Resume presentation score</h3>
-                <p class="summary-card__text" id="scoreExplanation"></p>
-              </div>
-            </article>
-
-            <article class="summary-card">
-              <p class="summary-card__eyebrow">Keyword coverage</p>
-              <h3 class="summary-card__metric" id="keywordScore">0%</h3>
-              <p class="summary-card__text">
-                Measures how strongly the current resume reflects the language
-                and requirements from the selected job description.
-              </p>
-            </article>
-
-            <article class="summary-card">
-              <p class="summary-card__eyebrow">Current target</p>
-              <h3 class="summary-card__title" id="targetSummary">Not analyzed yet</h3>
-              <p class="summary-card__text" id="focusSummary"></p>
-            </article>
+  <!-- Feature Section 2: Scoring Logic -->
+  <section class="feature feature--maroon" id="scoring-logic">
+    <div class="feature-container feature-container--reverse">
+      <div class="feature-visual">
+        <div class="keyword-card">
+          <div class="keyword-section">
+            <div class="keyword-section-title">MATCHED</div>
+            <div class="keyword-chips">
+              <span class="keyword-chip keyword-chip--matched">AWS</span>
+              <span class="keyword-chip keyword-chip--matched">Python</span>
+              <span class="keyword-chip keyword-chip--matched">Testing</span>
+            </div>
           </div>
-
-          <div class="results-sections">
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Matching skills</h3>
-                <span class="section-card__hint">Already represented well</span>
-              </div>
-              <div class="tag-list" id="matchingSkills"></div>
-            </section>
-
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Missing or weak signals</h3>
-                <span class="section-card__hint">Worth surfacing more clearly</span>
-              </div>
-              <div class="tag-list" id="missingSkills"></div>
-            </section>
-
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Bullet rewrites</h3>
-                <span class="section-card__hint">Focus on action, scope, and impact</span>
-              </div>
-              <div class="stack-list" id="weakBullets"></div>
-            </section>
-
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Section feedback</h3>
-                <span class="section-card__hint">Coverage across your resume</span>
-              </div>
-              <div class="stack-list" id="sectionFeedback"></div>
-            </section>
-
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Company-specific advice</h3>
-                <span class="section-card__hint">Tailored to the target company style</span>
-              </div>
-              <div class="stack-list" id="companyAdvice"></div>
-            </section>
-
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Projects or next steps</h3>
-                <span class="section-card__hint">Close the highest-impact gaps</span>
-              </div>
-              <div class="stack-list" id="projectSuggestions"></div>
-            </section>
-
-            <section class="section-card">
-              <div class="section-card__header">
-                <h3>Recent runs</h3>
-                <span class="section-card__hint">Current browser session only</span>
-              </div>
-              <div class="history-list" id="historyList"></div>
-            </section>
+          <div class="keyword-section">
+            <div class="keyword-section-title">MISSING</div>
+            <div class="keyword-chips">
+              <span class="keyword-chip keyword-chip--missing">CI/CD</span>
+              <span class="keyword-chip keyword-chip--missing">Leadership</span>
+              <span class="keyword-chip keyword-chip--missing">Metrics</span>
+            </div>
           </div>
         </div>
-      </section>
-    </main>
-  </div>
+      </div>
+      
+      <div class="feature-content feature-content--white">
+        <div class="feature-label feature-label--light">SCORING LOGIC</div>
+        <h2 class="feature-title feature-title--white">HOW DO WE CALCULATE YOUR SCORE?</h2>
+        <ul class="feature-list feature-list--white">
+          <li>Does your resume include all the right sections?</li>
+          <li>Are you using strong action verbs and avoiding filler words?</li>
+          <li>Are your keywords aligned with the job you want?</li>
+        </ul>
+        <a href="app.html" class="feature-cta feature-cta--orange">Review my resume now →</a>
+      </div>
+    </div>
+  </section>
 
-  <script type="module" src="./scripts/app.js"></script>
+  <!-- Feature Section 3: Line-by-Line Feedback -->
+  <section class="feature feature--light">
+    <div class="feature-container">
+      <div class="feature-content">
+        <div class="feature-label">LINE-BY-LINE FEEDBACK</div>
+        <h2 class="feature-title">SEE EXACTLY WHAT TO FIX AND WHERE.</h2>
+        <ul class="feature-list">
+          <li>Traffic-light highlighting shows what's strong, weak, or needs work</li>
+          <li>Click any suggestion to jump directly to that line in your resume</li>
+          <li>Top 5 priority fixes with no information overload</li>
+        </ul>
+        <a href="app.html" class="feature-cta feature-cta--maroon">See the document review →</a>
+      </div>
+      
+      <div class="feature-visual">
+        <div class="highlight-card">
+          <div class="highlight-bar highlight-bar--green"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+          <div class="highlight-bar highlight-bar--orange"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+          <div class="highlight-bar highlight-bar--red"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+          <div class="highlight-bar highlight-bar--orange"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bottom-cta">
+    <a href="app.html" class="btn-try-it">Try It Out</a>
+  </section>
+
+  <script>
+    // Smooth scroll for More Info link
+    document.querySelector('.more-info-link')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('#scoring-logic')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>

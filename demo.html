@@ -3,175 +3,155 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume Reviewer Demo - Mock Data</title>
-  <link rel="stylesheet" href="./styles/base.css" />
-  <link rel="stylesheet" href="./styles/layout.css" />
-  <link rel="stylesheet" href="./styles/components.css" />
+  <title>Mock Data Demo | Resume Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/app-demo.css" />
 </head>
 <body>
-  <div class="page-shell">
-    <header class="hero">
-      <div class="hero__eyebrow">Demo Mode - No API Required | <a href="index.html" style="color: inherit; text-decoration: underline;">Back to Live Mode</a></div>
-      <h1>Resume Reviewer Studio</h1>
-      <p class="hero__summary">
-        Test the interface with mock before/after resume examples. No API key needed.
-      </p>
-      <div class="hero__chips" aria-label="Demo features">
-        <span class="chip">Mock data</span>
-        <span class="chip">Before/After comparison</span>
-        <span class="chip">Instant results</span>
-        <span class="chip">No API calls</span>
+  <!-- Navbar -->
+  <nav class="app-nav">
+    <div class="app-nav-container">
+      <a href="app.html" class="nav-back">← Back to App</a>
+      <h1 class="nav-title">Resume Reviewer - Mock Demo</h1>
+    </div>
+  </nav>
+
+  <!-- Main Analysis View -->
+  <div class="analysis-view">
+    <div class="analysis-container">
+      <!-- Job Badge -->
+      <div class="job-badge">
+        <span class="job-badge__dot"></span>
+        <span class="job-badge__text">Mock Data: <strong>Software Engineer Intern at Apple</strong></span>
       </div>
-    </header>
 
-    <main class="app-grid">
-      <section class="panel panel--form" aria-labelledby="inputHeading">
-        <div class="panel__header">
-          <div>
-            <p class="panel__kicker">Demo Workspace</p>
-            <h2 id="inputHeading">Test with sample data</h2>
-          </div>
-          <span class="status-badge">Demo</span>
-        </div>
-
-        <div class="callout">
-          This demo page uses mock data to showcase the resume review workflow.
-          Try the "Before" and "After" versions to see improvement suggestions.
-        </div>
-
-        <div class="field-group">
-          <label for="demoScenario">Demo scenario</label>
-          <select id="demoScenario">
-            <option value="">Choose a demo scenario</option>
-            <option value="before">Hokie Student - Before (Weak Resume)</option>
-            <option value="after">Hokie Student - After (Improved Resume)</option>
-          </select>
-          <p class="field-hint">
-            Select a scenario to auto-populate the form and see mock analysis results.
-          </p>
-        </div>
-
-        <div class="field-grid">
-          <div class="field-group">
-            <label for="targetRole">Target role</label>
-            <select id="targetRole" disabled></select>
-          </div>
-          <div class="field-group">
-            <label for="targetCompany">Target company</label>
-            <select id="targetCompany" disabled></select>
+      <div class="analysis-grid">
+        <!-- Left Panel: Resume Document -->
+        <div class="document-panel">
+          <div class="document-card">
+            <div class="document-content" id="documentContent">
+              <!-- Resume will be rendered here -->
+            </div>
           </div>
         </div>
 
-        <div class="field-group">
-          <label for="stemMajor">STEM major</label>
-          <select id="stemMajor" disabled></select>
-        </div>
-
-        <div class="field-group">
-          <label for="resumeText">Resume content</label>
-          <textarea
-            id="resumeText"
-            placeholder="Select a demo scenario to load sample resume..."
-            disabled
-          ></textarea>
-        </div>
-
-        <div class="field-group">
-          <label for="jobText">Job description</label>
-          <textarea
-            id="jobText"
-            placeholder="Select a demo scenario to load job description..."
-            disabled
-          ></textarea>
-        </div>
-
-        <button type="button" class="primary-btn" id="analyzeBtn" disabled>
-          Run mock analysis
-        </button>
-
-        <div class="error-banner" id="errorMsg" hidden></div>
-
-        <div class="loader" id="loader" hidden>
-          <div class="spinner" aria-hidden="true"></div>
-          <p>Simulating analysis with mock data...</p>
-        </div>
-      </section>
-
-      <section class="panel panel--results" aria-labelledby="resultsHeading">
-        <div class="panel__header">
-          <div>
-            <p class="panel__kicker">Mock Output</p>
-            <h2 id="resultsHeading">Analysis results</h2>
+        <!-- Right Panel: Analysis Dashboard -->
+        <div class="analysis-panel">
+          <!-- Overall Score -->
+          <div class="score-section">
+            <div class="donut-container">
+              <svg viewBox="0 0 140 140" class="donut-svg">
+                <circle cx="70" cy="70" r="60" fill="none" stroke="#E5E5E5" stroke-width="14"/>
+                <circle cx="70" cy="70" r="60" fill="none" stroke="#E5751F" stroke-width="14" 
+                        class="donut-arc" stroke-dasharray="0 377" stroke-dashoffset="94.25" 
+                        transform="rotate(-90 70 70)"/>
+              </svg>
+              <div class="donut-score">62</div>
+            </div>
+            <p class="score-label">Overall Fit</p>
           </div>
-        </div>
 
-        <div class="empty-state" id="emptyState">
-          <h3>Ready for demo</h3>
-          <p>
-            Choose a demo scenario to see how the resume reviewer analyzes and provides feedback.
-          </p>
-          <ul class="empty-state__list">
-            <li>Select "Before" to see a weak resume with improvement opportunities</li>
-            <li>Select "After" to see the improved version with better scores</li>
-            <li>Compare the feedback to understand what makes a strong resume</li>
-          </ul>
-        </div>
+          <!-- Sub-scores -->
+          <div class="subscores">
+            <div class="subscore subscore--green">
+              <span class="subscore__label">Structure</span>
+              <span class="subscore__value">74</span>
+            </div>
+            <div class="subscore subscore--red">
+              <span class="subscore__label">Impact</span>
+              <span class="subscore__value">58</span>
+            </div>
+            <div class="subscore subscore--orange">
+              <span class="subscore__label">Keywords</span>
+              <span class="subscore__value">61</span>
+            </div>
+          </div>
 
-        <div id="resultsView" hidden>
-          <div class="results-layout">
-            <!-- Left Panel: Feedback -->
-            <div class="feedback-panel">
-              <div class="feedback-section">
-                <h3 class="feedback-section__title">Overall Fit Score</h3>
-                <div class="score-display">
-                  <div class="score-ring-large" id="scoreBadge">0</div>
-                  <div class="score-progress">
-                    <div class="score-progress-bar" id="scoreProgressBar"></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="feedback-section">
-                <h3 class="feedback-section__title">Keyword Coverage</h3>
-                <div class="keyword-coverage">
-                  <div class="keyword-coverage__score" id="keywordScore">0%</div>
-                  <div class="keyword-chips" id="keywordChips"></div>
-                </div>
-              </div>
-
-              <div class="feedback-section">
-                <h3 class="feedback-section__title">Suggested Changes</h3>
-                <p class="feedback-hint">Click any item to jump to that section in the document</p>
-                <ol class="change-list" id="changeList"></ol>
+          <!-- Keyword Coverage -->
+          <div class="section-card">
+            <h3 class="section-title">KEYWORD COVERAGE</h3>
+            
+            <div class="keyword-group">
+              <div class="keyword-group__title">MATCHED</div>
+              <div class="keyword-chips">
+                <span class="keyword-chip keyword-chip--matched">Java</span>
+                <span class="keyword-chip keyword-chip--matched">Python</span>
+                <span class="keyword-chip keyword-chip--matched">Git</span>
+                <span class="keyword-chip keyword-chip--matched">Node.js</span>
+                <span class="keyword-chip keyword-chip--matched">REST APIs</span>
               </div>
             </div>
 
-            <!-- Right Panel: Document View -->
-            <div class="document-panel">
-              <div class="document-legend">
-                <span class="legend-item">
-                  <span class="legend-dot legend-dot--red"></span>
-                  Needs improvement
-                </span>
-                <span class="legend-item">
-                  <span class="legend-dot legend-dot--yellow"></span>
-                  Minor changes
-                </span>
-                <span class="legend-item">
-                  <span class="legend-dot legend-dot--green"></span>
-                  Already strong
-                </span>
+            <div class="keyword-group">
+              <div class="keyword-group__title">MISSING</div>
+              <div class="keyword-chips">
+                <span class="keyword-chip keyword-chip--missing">AWS</span>
+                <span class="keyword-chip keyword-chip--missing">CI/CD</span>
+                <span class="keyword-chip keyword-chip--missing">Leadership</span>
+                <span class="keyword-chip keyword-chip--missing">Metrics</span>
+                <span class="keyword-chip keyword-chip--missing">Agile</span>
               </div>
-              <div class="document-container">
-                <div class="document-page" id="documentView"></div>
+            </div>
+
+            <div class="coverage-bar">
+              <div class="coverage-bar__fill" style="width: 50%"></div>
+            </div>
+            <p class="coverage-text">5 of 10 keywords matched</p>
+          </div>
+
+          <!-- Suggested Changes -->
+          <div class="section-card">
+            <h3 class="section-title">TOP FIXES</h3>
+            
+            <div class="fixes-list">
+              <div class="fix-item" data-target="experience-bullet-5">
+                <span class="fix-dot fix-dot--red"></span>
+                <div class="fix-content">
+                  <div class="fix-title">Quantify your bullets</div>
+                  <p class="fix-text">"Helped students with issues" gives recruiters nothing. Add numbers: how many tickets, how fast, what impact.</p>
+                </div>
+              </div>
+
+              <div class="fix-item" data-target="experience-bullet-1">
+                <span class="fix-dot fix-dot--red"></span>
+                <div class="fix-content">
+                  <div class="fix-title">Rewrite internship bullets</div>
+                  <p class="fix-text">"Fixed some bugs" and "took notes" are filler. Replace with what you built, the stack used, and the outcome.</p>
+                </div>
+              </div>
+
+              <div class="fix-item" data-target="skills-section">
+                <span class="fix-dot fix-dot--yellow"></span>
+                <div class="fix-content">
+                  <div class="fix-title">Add missing keywords</div>
+                  <p class="fix-text">CI/CD, AWS, and Metrics are common in CS job postings. Add them where accurate.</p>
+                </div>
+              </div>
+
+              <div class="fix-item" data-target="project-bullet-1">
+                <span class="fix-dot fix-dot--yellow"></span>
+                <div class="fix-content">
+                  <div class="fix-title">Strengthen project descriptions</div>
+                  <p class="fix-text">Projects lack GitHub links, tech stack details, and measurable outcomes.</p>
+                </div>
+              </div>
+
+              <div class="fix-item" data-target="header-contact">
+                <span class="fix-dot fix-dot--yellow"></span>
+                <div class="fix-content">
+                  <div class="fix-title">Expand club roles</div>
+                  <p class="fix-text">Member-only entries with no impact signal add noise. Add what you actually contributed.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   </div>
 
-  <script type="module" src="./scripts/demo.js"></script>
+  <script src="./scripts/app-demo.js"></script>
 </body>
 </html>
