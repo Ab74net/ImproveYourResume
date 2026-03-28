@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/app-demo.css" />
+  <link rel="stylesheet" href="./styles/demo-enhanced.css" />
 </head>
 <body>
   <!-- Navbar -->
@@ -18,140 +18,166 @@
     </div>
   </nav>
 
-  <!-- Main Analysis View -->
-  <div class="analysis-view">
-    <div class="analysis-container">
-      <!-- Job Badge -->
+  <!-- Main Content -->
+  <div class="demo-container">
+    <!-- Analysis Header -->
+    <div class="analysis-header">
       <div class="job-badge">
         <span class="job-badge__dot"></span>
-        <span class="job-badge__text">Mock Data: <strong>Software Engineer Intern at Apple</strong></span>
+        <span class="job-badge__text">Sample Analysis: <strong>Software Engineer Intern at Apple</strong></span>
       </div>
-
-      <div class="analysis-grid">
-        <!-- Left Panel: Resume Document -->
-        <div class="document-panel">
-          <div class="document-card">
-            <div class="document-content" id="documentContent">
-              <!-- Resume will be rendered here -->
-            </div>
-          </div>
+      
+      <div class="score-overview">
+        <div class="score-circle">
+          <svg viewBox="0 0 120 120" class="score-svg">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#E5E5E5" stroke-width="12"/>
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#E5751F" stroke-width="12" 
+                    class="score-arc" stroke-dasharray="0 327" stroke-dashoffset="81.75" 
+                    transform="rotate(-90 60 60)"/>
+          </svg>
+          <div class="score-number">62</div>
         </div>
-
-        <!-- Right Panel: Analysis Dashboard -->
-        <div class="analysis-panel">
-          <!-- Overall Score -->
-          <div class="score-section">
-            <div class="donut-container">
-              <svg viewBox="0 0 140 140" class="donut-svg">
-                <circle cx="70" cy="70" r="60" fill="none" stroke="#E5E5E5" stroke-width="14"/>
-                <circle cx="70" cy="70" r="60" fill="none" stroke="#E5751F" stroke-width="14" 
-                        class="donut-arc" stroke-dasharray="0 377" stroke-dashoffset="94.25" 
-                        transform="rotate(-90 70 70)"/>
-              </svg>
-              <div class="donut-score">62</div>
-            </div>
-            <p class="score-label">Overall Fit</p>
-          </div>
-
-          <!-- Sub-scores -->
-          <div class="subscores">
-            <div class="subscore subscore--green">
-              <span class="subscore__label">Structure</span>
-              <span class="subscore__value">74</span>
-            </div>
-            <div class="subscore subscore--red">
-              <span class="subscore__label">Impact</span>
-              <span class="subscore__value">58</span>
-            </div>
-            <div class="subscore subscore--orange">
-              <span class="subscore__label">Keywords</span>
-              <span class="subscore__value">61</span>
-            </div>
-          </div>
-
-          <!-- Keyword Coverage -->
-          <div class="section-card">
-            <h3 class="section-title">KEYWORD COVERAGE</h3>
-            
-            <div class="keyword-group">
-              <div class="keyword-group__title">MATCHED</div>
-              <div class="keyword-chips">
-                <span class="keyword-chip keyword-chip--matched">Java</span>
-                <span class="keyword-chip keyword-chip--matched">Python</span>
-                <span class="keyword-chip keyword-chip--matched">Git</span>
-                <span class="keyword-chip keyword-chip--matched">Node.js</span>
-                <span class="keyword-chip keyword-chip--matched">REST APIs</span>
-              </div>
-            </div>
-
-            <div class="keyword-group">
-              <div class="keyword-group__title">MISSING</div>
-              <div class="keyword-chips">
-                <span class="keyword-chip keyword-chip--missing">AWS</span>
-                <span class="keyword-chip keyword-chip--missing">CI/CD</span>
-                <span class="keyword-chip keyword-chip--missing">Leadership</span>
-                <span class="keyword-chip keyword-chip--missing">Metrics</span>
-                <span class="keyword-chip keyword-chip--missing">Agile</span>
-              </div>
-            </div>
-
-            <div class="coverage-bar">
-              <div class="coverage-bar__fill" style="width: 50%"></div>
-            </div>
-            <p class="coverage-text">5 of 10 keywords matched</p>
-          </div>
-
-          <!-- Suggested Changes -->
-          <div class="section-card">
-            <h3 class="section-title">TOP FIXES</h3>
-            
-            <div class="fixes-list">
-              <div class="fix-item" data-target="experience-bullet-5">
-                <span class="fix-dot fix-dot--red"></span>
-                <div class="fix-content">
-                  <div class="fix-title">Quantify your bullets</div>
-                  <p class="fix-text">"Helped students with issues" gives recruiters nothing. Add numbers: how many tickets, how fast, what impact.</p>
-                </div>
-              </div>
-
-              <div class="fix-item" data-target="experience-bullet-1">
-                <span class="fix-dot fix-dot--red"></span>
-                <div class="fix-content">
-                  <div class="fix-title">Rewrite internship bullets</div>
-                  <p class="fix-text">"Fixed some bugs" and "took notes" are filler. Replace with what you built, the stack used, and the outcome.</p>
-                </div>
-              </div>
-
-              <div class="fix-item" data-target="skills-section">
-                <span class="fix-dot fix-dot--yellow"></span>
-                <div class="fix-content">
-                  <div class="fix-title">Add missing keywords</div>
-                  <p class="fix-text">CI/CD, AWS, and Metrics are common in CS job postings. Add them where accurate.</p>
-                </div>
-              </div>
-
-              <div class="fix-item" data-target="project-bullet-1">
-                <span class="fix-dot fix-dot--yellow"></span>
-                <div class="fix-content">
-                  <div class="fix-title">Strengthen project descriptions</div>
-                  <p class="fix-text">Projects lack GitHub links, tech stack details, and measurable outcomes.</p>
-                </div>
-              </div>
-
-              <div class="fix-item" data-target="header-contact">
-                <span class="fix-dot fix-dot--yellow"></span>
-                <div class="fix-content">
-                  <div class="fix-title">Expand club roles</div>
-                  <p class="fix-text">Member-only entries with no impact signal add noise. Add what you actually contributed.</p>
-                </div>
-              </div>
-            </div>
+        <div class="score-details">
+          <h2 class="score-title">Overall Resume Score</h2>
+          <div class="score-subscores">
+            <span class="subscore subscore--green">Structure: 74</span>
+            <span class="subscore subscore--red">Impact: 58</span>
+            <span class="subscore subscore--orange">Keywords: 61</span>
           </div>
         </div>
       </div>
     </div>
+
+    <!-- Main Grid -->
+    <div class="demo-grid">
+      <!-- Left: Analysis Panel -->
+      <div class="analysis-sidebar">
+        <div class="analysis-card">
+          <h3 class="card-title">KEYWORD COVERAGE</h3>
+          
+          <div class="keyword-section">
+            <div class="keyword-label">MATCHED (5/10)</div>
+            <div class="keyword-chips">
+              <span class="chip chip--matched">Java</span>
+              <span class="chip chip--matched">Python</span>
+              <span class="chip chip--matched">HTML/CSS</span>
+              <span class="chip chip--matched">JavaScript</span>
+              <span class="chip chip--matched">Git</span>
+            </div>
+          </div>
+
+          <div class="keyword-section">
+            <div class="keyword-label">MISSING (5/10)</div>
+            <div class="keyword-chips">
+              <span class="chip chip--missing">Swift</span>
+              <span class="chip chip--missing">iOS</span>
+              <span class="chip chip--missing">SwiftUI</span>
+              <span class="chip chip--missing">REST APIs</span>
+              <span class="chip chip--missing">Unit Testing</span>
+            </div>
+          </div>
+
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 50%"></div>
+          </div>
+        </div>
+
+        <div class="analysis-card">
+          <h3 class="card-title">TOP ISSUES TO FIX</h3>
+          
+          <div class="issue-list">
+            <div class="issue-item issue-item--red" data-target="exp-bullet-1">
+              <span class="issue-number">1</span>
+              <div class="issue-content">
+                <div class="issue-title">Vague bullet points</div>
+                <p class="issue-text">"Worked on website" and "Fixed bugs" lack specifics, metrics, and impact.</p>
+              </div>
+            </div>
+
+            <div class="issue-item issue-item--red" data-target="exp-bullet-5">
+              <span class="issue-number">2</span>
+              <div class="issue-content">
+                <div class="issue-title">No quantification</div>
+                <p class="issue-text">"Answer phone calls" doesn't show volume, efficiency, or outcomes.</p>
+              </div>
+            </div>
+
+            <div class="issue-item issue-item--yellow" data-target="projects">
+              <span class="issue-number">3</span>
+              <div class="issue-content">
+                <div class="issue-title">Weak project descriptions</div>
+                <p class="issue-text">Projects lack tech stack details, GitHub links, and measurable results.</p>
+              </div>
+            </div>
+
+            <div class="issue-item issue-item--yellow" data-target="skills">
+              <span class="issue-number">4</span>
+              <div class="issue-content">
+                <div class="issue-title">Missing iOS keywords</div>
+                <p class="issue-text">No Swift, SwiftUI, or iOS-specific technologies for Apple role.</p>
+              </div>
+            </div>
+
+            <div class="issue-item issue-item--yellow" data-target="education">
+              <span class="issue-number">5</span>
+              <div class="issue-content">
+                <div class="issue-title">Incomplete education section</div>
+                <p class="issue-text">Missing GPA, relevant coursework, and leadership activities.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Resume Comparison -->
+      <div class="resume-comparison">
+        <!-- Original Resume -->
+        <div class="resume-section">
+          <div class="resume-header">
+            <h3 class="resume-title">ORIGINAL RESUME</h3>
+            <span class="resume-badge resume-badge--before">Score: 62/100</span>
+          </div>
+          
+          <div class="resume-document" id="originalResume">
+            <!-- Will be populated by JS -->
+          </div>
+        </div>
+
+        <!-- Improved Resume -->
+        <div class="resume-section">
+          <div class="resume-header">
+            <h3 class="resume-title">SUGGESTED UPDATED RESUME</h3>
+            <span class="resume-badge resume-badge--after">Score: 87/100</span>
+          </div>
+          
+          <div class="resume-document resume-document--improved" id="improvedResume">
+            <!-- Will be populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--red"></span>
+        <span class="legend-text">Needs significant improvement</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--yellow"></span>
+        <span class="legend-text">Minor improvements needed</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--green"></span>
+        <span class="legend-text">Strong - keep as is</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot legend-dot--blue"></span>
+        <span class="legend-text">New addition in improved version</span>
+      </div>
+    </div>
   </div>
 
-  <script src="./scripts/app-demo.js"></script>
+  <script type="module" src="./scripts/demo-enhanced.js"></script>
 </body>
 </html>

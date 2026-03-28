@@ -8,7 +8,8 @@ import {
   ROLE_OPTIONS,
   COMPANY_OPTIONS,
   STEM_MAJOR_OPTIONS,
-  SAMPLE_JOB_DESCRIPTIONS
+  SAMPLE_JOB_DESCRIPTIONS,
+  GENERIC_JOB_DESCRIPTION
 } from "./state.js";
 import {
   getDomElements,
@@ -20,6 +21,7 @@ import {
   renderAnalysis
 } from "./ui.js";
 import { handlePdfUpload } from "./upload.js";
+import { config } from "./config.js";
 
 function getOptionLabel(options, value) {
   return options.find((option) => option.value === value)?.label ?? value;
@@ -42,11 +44,7 @@ function getFormRequest(dom) {
   };
 }
 
-function validateRequest(apiKey, request) {
-  if (!apiKey) {
-    return "Enter a model API key for the Stage 1 prototype.";
-  }
-
+function validateRequest(request) {
   if (!request.resumeText) {
     return "Add resume text or upload a PDF before running analysis.";
   }
@@ -77,16 +75,32 @@ function loadSampleJobDescription(dom) {
 
   clearError(dom);
   dom.jobText.value = sample.description;
-  dom.targetRole.value = sample.role;
-  dom.targetCompany.value = sample.company;
+  
+  // Set text input values directly (no longer using select dropdowns)
+  const roleOption = ROLE_OPTIONS.find(r => r.value === sample.role);
+  const companyOption = COMPANY_OPTIONS.find(c => c.value === sample.company);
+  
+  if (roleOption) {
+    dom.targetRole.value = roleOption.label;
+  }
+  if (companyOption) {
+    dom.targetCompany.value = companyOption.label;
+  }
 }
 
 async function runAnalysis(dom) {
   clearError(dom);
 
-  const apiKey = dom.apiKey.value.trim();
+  // Get API key from config
+  const apiKey = config.getApiKey();
+  
+  if (!apiKey) {
+    showError(dom, "API key not configured. Please check scripts/config.js and add your API key.");
+    return;
+  }
+
   const request = getFormRequest(dom);
-  const validationMessage = validateRequest(apiKey, request);
+  const validationMessage = validateRequest(request);
 
   if (validationMessage) {
     showError(dom, validationMessage);
@@ -142,13 +156,13 @@ function setupScrollReveal() {
 function initialize() {
   const dom = getDomElements();
 
-  populateSelect(dom.targetRole, ROLE_OPTIONS, "Choose a target role");
-  populateSelect(dom.targetCompany, COMPANY_OPTIONS, "Choose a target company");
+  // No longer populate role and company as select dropdowns - they're now text inputs with datalists
   populateSelect(dom.stemMajor, STEM_MAJOR_OPTIONS, "Choose your STEM major (optional)");
   populateSamples(dom.sampleJobDescription, SAMPLE_JOB_DESCRIPTIONS);
 
-  dom.targetRole.value = "software-engineer";
-  dom.targetCompany.value = "amazon";
+  // Set default values for text inputs
+  dom.targetRole.value = "Software Engineer";
+  dom.targetCompany.value = "Amazon";
 
   dom.uploadResumeBtn.addEventListener("click", () => {
     dom.resumeFile.click();
@@ -166,7 +180,16 @@ function initialize() {
     runAnalysis(dom);
   });
 
-  [dom.resumeText, dom.jobText, dom.apiKey].forEach((element) => {
+  // Add handler for "Use Generic Sample" button
+  const useGenericJdBtn = document.getElementById("useGenericJdBtn");
+  if (useGenericJdBtn) {
+    useGenericJdBtn.addEventListener("click", () => {
+      dom.jobText.value = GENERIC_JOB_DESCRIPTION;
+      clearError(dom);
+    });
+  }
+
+  [dom.resumeText, dom.jobText].forEach((element) => {
     element.addEventListener("input", () => {
       if (!dom.errorMsg.hidden) {
         clearError(dom);

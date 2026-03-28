@@ -32,29 +32,45 @@
         </div>
 
         <div class="info-callout">
-          <p>Phase 1 keeps the AI call in the browser for demo speed. Phase 2 moves analysis behind AWS API Gateway and Lambda.</p>
-        </div>
-
-        <div class="form-group">
-          <label for="apiKey" class="form-label">Model API Key</label>
-          <input
-            type="password"
-            id="apiKey"
-            class="form-input"
-            placeholder="Temporary for Stage 1"
-            autocomplete="off"
-          />
-          <p class="form-hint">The key is only used for the current session and is not stored.</p>
+          <p>AI-powered resume analysis using advanced language models. Upload your resume and get instant feedback tailored to your target role and company.</p>
         </div>
 
         <div class="form-row">
           <div class="form-group">
             <label for="targetRole" class="form-label">Target Role</label>
-            <select id="targetRole" class="form-select"></select>
+            <input 
+              type="text" 
+              id="targetRole" 
+              class="form-input" 
+              placeholder="e.g. Software Engineer, Data Analyst"
+              list="roleOptions"
+            />
+            <datalist id="roleOptions">
+              <option value="Software Engineer">
+              <option value="QA Engineer">
+              <option value="Data Analyst">
+              <option value="Product Manager">
+              <option value="DevOps Engineer">
+              <option value="Security Engineer">
+            </datalist>
           </div>
           <div class="form-group">
             <label for="targetCompany" class="form-label">Target Company</label>
-            <select id="targetCompany" class="form-select"></select>
+            <input 
+              type="text" 
+              id="targetCompany" 
+              class="form-input" 
+              placeholder="e.g. Apple, Google, Amazon"
+              list="companyOptions"
+            />
+            <datalist id="companyOptions">
+              <option value="Amazon">
+              <option value="Google">
+              <option value="Meta">
+              <option value="Apple">
+              <option value="Netflix">
+              <option value="Microsoft">
+            </datalist>
           </div>
         </div>
 
@@ -97,10 +113,16 @@
 
         <div class="form-group">
           <label for="jobText" class="form-label">Job Description</label>
+          <div class="jd-options">
+            <button type="button" class="btn btn--secondary btn--small" id="useGenericJdBtn">
+              Use Generic Sample
+            </button>
+            <span class="form-hint">Or paste your own job description below</span>
+          </div>
           <textarea
             id="jobText"
             class="form-textarea"
-            placeholder="Paste the job description or load one of the sample prompts."
+            placeholder="Paste the job description here, or click 'Use Generic Sample' for a template."
           ></textarea>
         </div>
 

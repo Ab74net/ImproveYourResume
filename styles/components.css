@@ -99,6 +99,19 @@
   margin-bottom: 12px;
 }
 
+.jd-options {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.btn--small {
+  padding: 10px 20px;
+  font-size: 12px;
+}
+
 /* Buttons */
 .btn {
   display: inline-block;

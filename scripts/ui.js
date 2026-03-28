@@ -88,7 +88,6 @@ function scoreRingClass(score) {
 
 export function getDomElements() {
   return {
-    apiKey: document.getElementById("apiKey"),
     targetRole: document.getElementById("targetRole"),
     targetCompany: document.getElementById("targetCompany"),
     stemMajor: document.getElementById("stemMajor"),

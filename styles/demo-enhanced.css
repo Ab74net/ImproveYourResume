@@ -1,0 +1,619 @@
+:root {
+  --vt-maroon: #861F41;
+  --vt-orange: #E5751F;
+  --off-white: #F5F0E8;
+  --white: #FFFFFF;
+  --black: #1A1A1A;
+  --gray: #6B6B6B;
+  --light-gray: #E5E5E5;
+  --green: #4CAF50;
+  --green-bg: rgba(76, 175, 80, 0.15);
+  --yellow: #FFC107;
+  --yellow-bg: rgba(255, 193, 7, 0.15);
+  --red: #D32F2F;
+  --red-bg: rgba(211, 47, 47, 0.15);
+  --blue: #2196F3;
+  --blue-bg: rgba(33, 150, 243, 0.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  color: var(--black);
+  background: var(--off-white);
+  line-height: 1.6;
+}
+
+/* Navbar */
+.app-nav {
+  background: var(--black);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-nav-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-back {
+  color: var(--vt-orange);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.nav-back:hover {
+  opacity: 0.8;
+}
+
+.nav-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+/* Demo Container */
+.demo-container {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* Analysis Header */
+.analysis-header {
+  margin-bottom: 40px;
+}
+
+.job-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--vt-maroon);
+  color: var(--white);
+  padding: 12px 24px;
+  border-radius: 999px;
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.job-badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--vt-orange);
+}
+
+.job-badge__text {
+  font-weight: 500;
+}
+
+.job-badge__text strong {
+  font-weight: 700;
+}
+
+.score-overview {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.score-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+}
+
+.score-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.score-arc {
+  transition: stroke-dasharray 1.5s ease-out;
+}
+
+.score-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--vt-maroon);
+}
+
+.score-details {
+  flex: 1;
+}
+
+.score-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--vt-maroon);
+  margin-bottom: 12px;
+}
+
+.score-subscores {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.subscore {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.subscore--green {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.subscore--red {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.subscore--orange {
+  background: rgba(229, 117, 31, 0.15);
+  color: var(--vt-orange);
+}
+
+/* Demo Grid */
+.demo-grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 32px;
+  margin-bottom: 40px;
+}
+
+/* Analysis Sidebar */
+.analysis-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.analysis-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--vt-maroon);
+  margin-bottom: 20px;
+  letter-spacing: 0.5px;
+}
+
+/* Keywords */
+.keyword-section {
+  margin-bottom: 20px;
+}
+
+.keyword-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gray);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.keyword-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chip--matched {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.chip--missing {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.progress-bar {
+  height: 8px;
+  background: var(--light-gray);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--vt-orange);
+  border-radius: 999px;
+  transition: width 1s ease-out;
+}
+
+/* Issues */
+.issue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.issue-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px;
+  background: var(--off-white);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.issue-item:hover {
+  border-color: var(--vt-orange);
+  transform: translateX(4px);
+}
+
+.issue-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.issue-item--red .issue-number {
+  background: var(--red);
+}
+
+.issue-item--yellow .issue-number {
+  background: var(--yellow);
+}
+
+.issue-content {
+  flex: 1;
+}
+
+.issue-title {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+
+.issue-text {
+  font-size: 13px;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+/* Resume Comparison */
+.resume-comparison {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.resume-section {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 6px 6px 0 var(--vt-maroon);
+  overflow: hidden;
+}
+
+.resume-header {
+  background: var(--vt-maroon);
+  padding: 20px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resume-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+
+.resume-badge {
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.resume-badge--before {
+  background: rgba(211, 47, 47, 0.2);
+  color: var(--white);
+}
+
+.resume-badge--after {
+  background: rgba(76, 175, 80, 0.2);
+  color: var(--white);
+}
+
+.resume-document {
+  padding: 48px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--black);
+}
+
+.resume-document--improved {
+  background: rgba(76, 175, 80, 0.03);
+}
+
+/* Resume Content */
+.resume-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.resume-contact {
+  text-align: center;
+  font-size: 13px;
+  color: var(--gray);
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--light-gray);
+}
+
+.resume-section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--vt-maroon);
+  margin: 24px 0 12px 0;
+  letter-spacing: 0.5px;
+}
+
+.resume-line {
+  padding: 4px 8px;
+  margin: 2px 0;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.resume-line--red {
+  background: var(--red-bg);
+  border-left: 3px solid var(--red);
+  padding-left: 12px;
+}
+
+.resume-line--yellow {
+  background: var(--yellow-bg);
+  border-left: 3px solid var(--yellow);
+  padding-left: 12px;
+}
+
+.resume-line--green {
+  background: var(--green-bg);
+  border-left: 3px solid var(--green);
+  padding-left: 12px;
+}
+
+.resume-line--blue {
+  background: var(--blue-bg);
+  border-left: 3px solid var(--blue);
+  padding-left: 12px;
+}
+
+.resume-line.pulse {
+  animation: pulse 0.4s ease;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+.resume-subsection {
+  font-weight: 600;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.resume-bullet {
+  padding-left: 20px;
+  position: relative;
+}
+
+.resume-bullet::before {
+  content: "•";
+  position: absolute;
+  left: 8px;
+}
+
+/* Legend */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding: 24px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-dot--red {
+  background: var(--red);
+}
+
+.legend-dot--yellow {
+  background: var(--yellow);
+}
+
+.legend-dot--green {
+  background: var(--green);
+}
+
+.legend-dot--blue {
+  background: var(--blue);
+}
+
+.legend-text {
+  font-size: 13px;
+  color: var(--gray);
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .demo-grid {
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .demo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .analysis-sidebar {
+    order: 2;
+  }
+
+  .resume-comparison {
+    order: 1;
+  }
+
+  .demo-container {
+    padding: 24px;
+  }
+
+  .app-nav-container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .demo-container {
+    padding: 16px;
+  }
+
+  .app-nav-container {
+    padding: 0 16px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .nav-title {
+    font-size: 18px;
+  }
+
+  .score-overview {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .score-title {
+    font-size: 22px;
+  }
+
+  .score-subscores {
+    justify-content: center;
+  }
+
+  .resume-document {
+    padding: 24px;
+    font-size: 13px;
+  }
+
+  .resume-header {
+    padding: 16px 20px;
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .resume-title {
+    font-size: 16px;
+  }
+
+  .legend {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .analysis-card {
+    padding: 20px;
+  }
+
+  .job-badge {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+}

@@ -103,6 +103,39 @@ Qualifications:
   }
 ];
 
+export const GENERIC_JOB_DESCRIPTION = `Software Engineer - Full Stack
+
+We are seeking a talented Software Engineer to join our growing engineering team. You will work on building scalable web applications and backend services that serve millions of users.
+
+Responsibilities:
+- Design, develop, and maintain full-stack web applications
+- Write clean, maintainable, and well-tested code
+- Collaborate with product managers, designers, and other engineers
+- Participate in code reviews and contribute to engineering best practices
+- Debug and resolve production issues
+- Contribute to technical architecture and design decisions
+
+Required Qualifications:
+- Bachelor's degree in Computer Science or related field, or equivalent experience
+- Strong programming skills in one or more languages (Java, Python, JavaScript, TypeScript, Go)
+- Experience with modern web frameworks (React, Vue, Angular, Node.js, Django, Spring)
+- Understanding of data structures, algorithms, and software design patterns
+- Familiarity with databases (SQL and/or NoSQL)
+- Experience with version control systems (Git)
+- Strong problem-solving and analytical skills
+- Excellent communication and teamwork abilities
+
+Preferred Qualifications:
+- Experience with cloud platforms (AWS, GCP, Azure)
+- Knowledge of containerization and orchestration (Docker, Kubernetes)
+- Understanding of CI/CD pipelines and DevOps practices
+- Experience with RESTful API design and microservices architecture
+- Familiarity with testing frameworks and test-driven development
+- Contributions to open source projects
+- Experience with Agile/Scrum methodologies
+
+We offer competitive compensation, comprehensive benefits, and opportunities for professional growth in a collaborative and innovative environment.`;
+
 export const appState = {
   currentAnalysisId: null,
   analysisHistory: []
