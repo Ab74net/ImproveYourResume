@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Reviewer Studio</title>
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/layout.css" />
+  <link rel="stylesheet" href="./styles/components.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__eyebrow">Stage 1 Frontend Refactor | <a href="demo.html" style="color: inherit; text-decoration: underline;">Try Demo Mode</a></div>
+      <h1>Resume Reviewer Studio</h1>
+      <p class="hero__summary">
+        Upload a resume, target a role and company, and get structured feedback
+        on keywords, weak bullets, and practical next steps.
+      </p>
+      <div class="hero__chips" aria-label="Key capabilities">
+        <span class="chip">Role presets</span>
+        <span class="chip">Company targeting</span>
+        <span class="chip">PDF upload</span>
+        <span class="chip">Bullet rewrites</span>
+      </div>
+    </header>
+
+    <main class="app-grid">
+      <section class="panel panel--form" aria-labelledby="inputHeading">
+        <div class="panel__header">
+          <div>
+            <p class="panel__kicker">Workspace</p>
+            <h2 id="inputHeading">Build a targeted review</h2>
+          </div>
+          <span class="status-badge">Prototype</span>
+        </div>
+
+        <div class="callout">
+          Phase 1 keeps the AI call in the browser for demo speed. Phase 2 moves
+          analysis behind AWS API Gateway and Lambda.
+        </div>
+
+        <div class="field-group">
+          <label for="apiKey">Model API key</label>
+          <input
+            type="password"
+            id="apiKey"
+            placeholder="Temporary for Stage 1"
+            autocomplete="off"
+          />
+          <p class="field-hint">
+            The key is only used for the current session and is not stored in
+            local storage.
+          </p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field-group">
+            <label for="targetRole">Target role</label>
+            <select id="targetRole"></select>
+          </div>
+          <div class="field-group">
+            <label for="targetCompany">Target company</label>
+            <select id="targetCompany"></select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="stemMajor">STEM major</label>
+          <select id="stemMajor"></select>
+          <p class="field-hint">
+            Optional: helps tailor feedback to your educational background and technical foundation.
+          </p>
+        </div>
+
+        <div class="field-grid field-grid--tight">
+          <div class="field-group">
+            <label for="sampleJobDescription">Sample job descriptions</label>
+            <select id="sampleJobDescription"></select>
+          </div>
+          <div class="field-group field-group--button">
+            <button type="button" class="secondary-btn" id="loadSampleBtn">
+              Load sample JD
+            </button>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <div class="field-row">
+            <label for="resumeText">Resume content</label>
+            <span class="field-meta" id="uploadStatus">Paste text or upload a PDF.</span>
+          </div>
+          <div class="upload-toolbar">
+            <button type="button" class="secondary-btn" id="uploadResumeBtn">
+              Upload PDF
+            </button>
+            <input type="file" id="resumeFile" accept=".pdf" hidden />
+            <span class="field-hint">Recommended max file size: 4 MB</span>
+          </div>
+          <textarea
+            id="resumeText"
+            placeholder="Paste your resume text here, or upload a PDF."
+          ></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="jobText">Job description</label>
+          <textarea
+            id="jobText"
+            placeholder="Paste the job description or load one of the sample prompts."
+          ></textarea>
+        </div>
+
+        <button type="button" class="primary-btn" id="analyzeBtn">
+          Analyze resume fit
+        </button>
+
+        <div class="error-banner" id="errorMsg" hidden></div>
+
+        <div class="loader" id="loader" hidden>
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Analyzing your resume and generating targeted suggestions...</p>
+        </div>
+      </section>
+
+      <section class="panel panel--results" aria-labelledby="resultsHeading">
+        <div class="panel__header">
+          <div>
+            <p class="panel__kicker">Output</p>
+            <h2 id="resultsHeading">Analysis results</h2>
+          </div>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <h3>Ready for the first pass</h3>
+          <p>
+            Add a resume, choose a role and company target, then run the review
+            to generate an ATS-style scorecard and rewrite suggestions.
+          </p>
+          <ul class="empty-state__list">
+            <li>Upload a PDF or paste plain-text resume content</li>
+            <li>Target a role like SWE, QA, or Data Analyst</li>
+            <li>Tailor feedback to Amazon, Google, Meta, or a general FAANG style</li>
+          </ul>
+        </div>
+
+        <div id="resultsView" hidden>
+          <div class="summary-grid">
+            <article class="summary-card summary-card--score">
+              <div class="score-ring" id="scoreBadge">0</div>
+              <div>
+                <p class="summary-card__eyebrow">Overall fit</p>
+                <h3 class="summary-card__title">Resume presentation score</h3>
+                <p class="summary-card__text" id="scoreExplanation"></p>
+              </div>
+            </article>
+
+            <article class="summary-card">
+              <p class="summary-card__eyebrow">Keyword coverage</p>
+              <h3 class="summary-card__metric" id="keywordScore">0%</h3>
+              <p class="summary-card__text">
+                Measures how strongly the current resume reflects the language
+                and requirements from the selected job description.
+              </p>
+            </article>
+
+            <article class="summary-card">
+              <p class="summary-card__eyebrow">Current target</p>
+              <h3 class="summary-card__title" id="targetSummary">Not analyzed yet</h3>
+              <p class="summary-card__text" id="focusSummary"></p>
+            </article>
+          </div>
+
+          <div class="results-sections">
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Matching skills</h3>
+                <span class="section-card__hint">Already represented well</span>
+              </div>
+              <div class="tag-list" id="matchingSkills"></div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Missing or weak signals</h3>
+                <span class="section-card__hint">Worth surfacing more clearly</span>
+              </div>
+              <div class="tag-list" id="missingSkills"></div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Bullet rewrites</h3>
+                <span class="section-card__hint">Focus on action, scope, and impact</span>
+              </div>
+              <div class="stack-list" id="weakBullets"></div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Section feedback</h3>
+                <span class="section-card__hint">Coverage across your resume</span>
+              </div>
+              <div class="stack-list" id="sectionFeedback"></div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Company-specific advice</h3>
+                <span class="section-card__hint">Tailored to the target company style</span>
+              </div>
+              <div class="stack-list" id="companyAdvice"></div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Projects or next steps</h3>
+                <span class="section-card__hint">Close the highest-impact gaps</span>
+              </div>
+              <div class="stack-list" id="projectSuggestions"></div>
+            </section>
+
+            <section class="section-card">
+              <div class="section-card__header">
+                <h3>Recent runs</h3>
+                <span class="section-card__hint">Current browser session only</span>
+              </div>
+              <div class="history-list" id="historyList"></div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./scripts/app.js"></script>
+</body>
+</html>

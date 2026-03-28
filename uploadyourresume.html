@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Improve Your Resume</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs" type="module"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #2d2d44;
+      color: white;
+      padding: 1.5rem 2rem;
+    }
+    header h1 { font-size: 1.5rem; font-weight: 700; }
+    header p { font-size: 0.9rem; opacity: 0.75; margin-top: 0.25rem; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    .api-bar {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .api-bar label { font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+    .api-bar input {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-family: monospace;
+    }
+    .api-bar input:focus { outline: 2px solid #6c63ff; border-color: transparent; }
+
+    .inputs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (max-width: 640px) { .inputs { grid-template-columns: 1fr; } }
+
+    .input-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+    .input-card label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .input-card textarea {
+      width: 100%;
+      height: 220px;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      resize: vertical;
+      font-family: inherit;
+      line-height: 1.5;
+    }
+    .input-card textarea:focus { outline: 2px solid #6c63ff; border-color: transparent; }
+
+    .upload-row {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+    }
+    .upload-btn {
+      font-size: 0.78rem;
+      padding: 0.35rem 0.75rem;
+      border: 1px dashed #6c63ff;
+      border-radius: 6px;
+      background: #f3f2ff;
+      color: #6c63ff;
+      cursor: pointer;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .upload-btn:hover { background: #e8e6ff; }
+    .upload-status { font-size: 0.78rem; color: #888; }
+
+    .analyze-btn {
+      display: block;
+      width: 100%;
+      padding: 0.9rem;
+      background: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .analyze-btn:hover { background: #574fd6; }
+    .analyze-btn:disabled { background: #aaa; cursor: not-allowed; }
+
+    .error-msg {
+      background: #fff0f0;
+      border: 1px solid #ffcccc;
+      color: #c0392b;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      margin-top: 1.25rem;
+      font-size: 0.9rem;
+      display: none;
+    }
+
+    .loader {
+      text-align: center;
+      padding: 2.5rem;
+      display: none;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    .loader .spinner {
+      width: 36px; height: 36px;
+      border: 4px solid #e0e0e0;
+      border-top-color: #6c63ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 1rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    #results { display: none; margin-top: 2rem; }
+
+    .score-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .score-badge {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+    .score-badge.low    { background: #e74c3c; }
+    .score-badge.mid    { background: #f39c12; }
+    .score-badge.good   { background: #27ae60; }
+
+    .score-text h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .score-text p  { font-size: 0.9rem; color: #555; line-height: 1.5; }
+
+    .section {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      padding: 0.3rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .tag.green  { background: #e8f8f0; color: #1e8449; border: 1px solid #a9dfbf; }
+    .tag.amber  { background: #fef9e7; color: #9a6700; border: 1px solid #f9e79f; }
+
+    .bullet-item {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 0.85rem;
+    }
+    .bullet-item:last-child { margin-bottom: 0; }
+    .bullet-original { font-size: 0.88rem; color: #555; margin-bottom: 0.4rem; }
+    .bullet-issue {
+      font-size: 0.8rem;
+      color: #c0392b;
+      background: #fff5f5;
+      border-radius: 4px;
+      padding: 0.3rem 0.6rem;
+      margin-bottom: 0.6rem;
+      display: inline-block;
+    }
+    .bullet-suggestion {
+      font-size: 0.9rem;
+      color: #1e8449;
+      background: #f0faf4;
+      border-radius: 6px;
+      padding: 0.6rem 0.85rem;
+      line-height: 1.5;
+    }
+    .bullet-suggestion::before { content: "✦ "; font-size: 0.75rem; }
+
+    .guidance-text {
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.65;
+    }
+
+    .empty-state {
+      font-size: 0.88rem;
+      color: #888;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Improve Your Resume</h1>
+  <p>Paste your resume and a job description — we'll help you tell your story better.</p>
+</header>
+
+<div class="container">
+
+  <div class="api-bar">
+    <label for="apiKey">OpenAI API Key</label>
+    <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" />
+  </div>
+
+  <div class="inputs">
+    <div class="input-card">
+      <label for="resumeText">Your Resume</label>
+      <div class="upload-row">
+        <button class="upload-btn" onclick="document.getElementById('resumeFile').click()">⬆ Upload PDF</button>
+        <span class="upload-status" id="uploadStatus"></span>
+        <input type="file" id="resumeFile" accept=".pdf" style="display:none" onchange="handlePdfUpload(event)" />
+      </div>
+      <textarea id="resumeText" placeholder="Paste your resume text here, or upload a PDF above..."></textarea>
+    </div>
+    <div class="input-card">
+      <label for="jobText">Job Description</label>
+      <textarea id="jobText" placeholder="Paste the job description here..."></textarea>
+    </div>
+  </div>
+
+  <button class="analyze-btn" id="analyzeBtn" onclick="analyze()">Analyze My Resume</button>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+    Analyzing your resume — this takes about 10 seconds...
+  </div>
+
+  <div id="results">
+
+    <div class="score-card">
+      <div class="score-badge" id="scoreBadge">—</div>
+      <div class="score-text">
+        <h2>Resume Presentation Score</h2>
+        <p id="scoreExplanation"></p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>✅ Skills You've Already Shown</h3>
+      <div class="tags" id="matchingSkills"></div>
+    </div>
+
+    <div class="section">
+      <h3>⚠️ Skills Mentioned in the JD You Haven't Highlighted</h3>
+      <div class="tags" id="missingSkills"></div>
+    </div>
+
+    <div class="section">
+      <h3>✏️ Bullet Points Worth Strengthening</h3>
+      <div id="weakBullets"></div>
+    </div>
+
+    <div class="section">
+      <h3>🛠 What to Build Before You Apply</h3>
+      <p class="guidance-text" id="skillGapGuidance"></p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const KEY_STORAGE = 'iyr_api_key';
+
+  // pdf.js lives in a module script tag, so we load it dynamically here
+  async function getPdfJs() {
+    const pdfjsLib = await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.mjs');
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.worker.min.mjs';
+    return pdfjsLib;
+  }
+
+  async function handlePdfUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const status = document.getElementById('uploadStatus');
+    status.textContent = 'Reading PDF...';
+    try {
+      const pdfjsLib = await getPdfJs();
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      let text = '';
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        text += content.items.map(item => item.str).join(' ') + '\n';
+      }
+      document.getElementById('resumeText').value = text.trim();
+      status.textContent = `✓ ${file.name} loaded (${pdf.numPages} page${pdf.numPages > 1 ? 's' : ''})`;
+      status.style.color = '#1e8449';
+    } catch (e) {
+      status.textContent = 'Could not read PDF — try pasting the text instead.';
+      status.style.color = '#c0392b';
+    }
+    // reset so same file can be re-uploaded
+    event.target.value = '';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(KEY_STORAGE);
+    if (saved) document.getElementById('apiKey').value = saved;
+  });
+
+  function buildPrompt(resume, jd) {
+    return `You are a resume coach helping job seekers better present their real skills and experience.
+
+Analyze the resume against the job description and return ONLY a valid JSON object — no markdown, no explanation, just raw JSON.
+
+Schema:
+{
+  "score": <integer 0-100>,
+  "score_explanation": "<2-3 sentence plain-English explanation of the score>",
+  "matching_skills": ["<skill>", ...],
+  "missing_skills": ["<skill>", ...],
+  "weak_bullets": [
+    {
+      "original": "<original bullet text>",
+      "issue": "<short description of the problem>",
+      "suggestion": "<rewritten stronger version>"
+    }
+  ],
+  "skill_gap_guidance": "<1-2 sentences of supportive, practical advice on what to build or learn before applying>"
+}
+
+Rules:
+- Score reflects how well the resume PRESENTS the candidate's experience for this role (not whether they'll get hired)
+- matching_skills: skills/tools that appear in both the resume and JD
+- missing_skills: important skills from the JD not clearly shown in the resume
+- weak_bullets: pick up to 5 bullet points that are vague, lack measurable impact, or use weak verbs — rewrite each one stronger
+- skill_gap_guidance: focus on real skill-building, not keyword stuffing
+- Tone: clear, supportive, slightly informal
+
+RESUME:
+${resume}
+
+JOB DESCRIPTION:
+${jd}`;
+  }
+
+  async function callOpenAI(apiKey, prompt) {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        temperature: 0.4,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `API error ${res.status}`);
+    }
+
+    const data = await res.json();
+    const raw = data.choices[0].message.content.trim();
+    // strip markdown code fences if model wraps anyway
+    const cleaned = raw.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+    return JSON.parse(cleaned);
+  }
+
+  function setLoading(on) {
+    document.getElementById('loader').style.display = on ? 'block' : 'none';
+    document.getElementById('analyzeBtn').disabled = on;
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('errorMsg').style.display = 'none';
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.style.display = 'block';
+  }
+
+  function renderResults(data) {
+    // Score badge
+    const score = data.score ?? 0;
+    const badge = document.getElementById('scoreBadge');
+    badge.textContent = score;
+    badge.className = 'score-badge ' + (score >= 75 ? 'good' : score >= 50 ? 'mid' : 'low');
+    document.getElementById('scoreExplanation').textContent = data.score_explanation ?? '';
+
+    // Matching skills
+    const matchEl = document.getElementById('matchingSkills');
+    matchEl.innerHTML = data.matching_skills?.length
+      ? data.matching_skills.map(s => `<span class="tag green">${s}</span>`).join('')
+      : '<span class="empty-state">None detected</span>';
+
+    // Missing skills
+    const missEl = document.getElementById('missingSkills');
+    missEl.innerHTML = data.missing_skills?.length
+      ? data.missing_skills.map(s => `<span class="tag amber">${s}</span>`).join('')
+      : '<span class="empty-state">Looks good — no obvious gaps</span>';
+
+    // Weak bullets
+    const bulletsEl = document.getElementById('weakBullets');
+    if (data.weak_bullets?.length) {
+      bulletsEl.innerHTML = data.weak_bullets.map(b => `
+        <div class="bullet-item">
+          <div class="bullet-original">Original: "${b.original}"</div>
+          <span class="bullet-issue">${b.issue}</span>
+          <div class="bullet-suggestion">${b.suggestion}</div>
+        </div>
+      `).join('');
+    } else {
+      bulletsEl.innerHTML = '<span class="empty-state">No weak bullets found — nice work.</span>';
+    }
+
+    // Guidance
+    document.getElementById('skillGapGuidance').textContent =
+      data.skill_gap_guidance ?? 'No major gaps identified for this role.';
+
+    document.getElementById('results').style.display = 'block';
+  }
+
+  async function analyze() {
+    const apiKey = document.getElementById('apiKey').value.trim();
+    const resume = document.getElementById('resumeText').value.trim();
+    const jd = document.getElementById('jobText').value.trim();
+
+    if (!apiKey) return showError('Please enter your OpenAI API key.');
+    if (!resume) return showError('Please paste your resume text.');
+    if (!jd) return showError('Please paste the job description.');
+
+    localStorage.setItem(KEY_STORAGE, apiKey);
+
+    setLoading(true);
+    try {
+      const prompt = buildPrompt(resume, jd);
+      const data = await callOpenAI(apiKey, prompt);
+      renderResults(data);
+    } catch (e) {
+      showError('Something went wrong: ' + e.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+</script>
+
+</body>
+</html>

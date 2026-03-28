@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Reviewer Demo - Mock Data</title>
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/layout.css" />
+  <link rel="stylesheet" href="./styles/components.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero__eyebrow">Demo Mode - No API Required | <a href="index.html" style="color: inherit; text-decoration: underline;">Back to Live Mode</a></div>
+      <h1>Resume Reviewer Studio</h1>
+      <p class="hero__summary">
+        Test the interface with mock before/after resume examples. No API key needed.
+      </p>
+      <div class="hero__chips" aria-label="Demo features">
+        <span class="chip">Mock data</span>
+        <span class="chip">Before/After comparison</span>
+        <span class="chip">Instant results</span>
+        <span class="chip">No API calls</span>
+      </div>
+    </header>
+
+    <main class="app-grid">
+      <section class="panel panel--form" aria-labelledby="inputHeading">
+        <div class="panel__header">
+          <div>
+            <p class="panel__kicker">Demo Workspace</p>
+            <h2 id="inputHeading">Test with sample data</h2>
+          </div>
+          <span class="status-badge">Demo</span>
+        </div>
+
+        <div class="callout">
+          This demo page uses mock data to showcase the resume review workflow.
+          Try the "Before" and "After" versions to see improvement suggestions.
+        </div>
+
+        <div class="field-group">
+          <label for="demoScenario">Demo scenario</label>
+          <select id="demoScenario">
+            <option value="">Choose a demo scenario</option>
+            <option value="before">Hokie Student - Before (Weak Resume)</option>
+            <option value="after">Hokie Student - After (Improved Resume)</option>
+          </select>
+          <p class="field-hint">
+            Select a scenario to auto-populate the form and see mock analysis results.
+          </p>
+        </div>
+
+        <div class="field-grid">
+          <div class="field-group">
+            <label for="targetRole">Target role</label>
+            <select id="targetRole" disabled></select>
+          </div>
+          <div class="field-group">
+            <label for="targetCompany">Target company</label>
+            <select id="targetCompany" disabled></select>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label for="stemMajor">STEM major</label>
+          <select id="stemMajor" disabled></select>
+        </div>
+
+        <div class="field-group">
+          <label for="resumeText">Resume content</label>
+          <textarea
+            id="resumeText"
+            placeholder="Select a demo scenario to load sample resume..."
+            disabled
+          ></textarea>
+        </div>
+
+        <div class="field-group">
+          <label for="jobText">Job description</label>
+          <textarea
+            id="jobText"
+            placeholder="Select a demo scenario to load job description..."
+            disabled
+          ></textarea>
+        </div>
+
+        <button type="button" class="primary-btn" id="analyzeBtn" disabled>
+          Run mock analysis
+        </button>
+
+        <div class="error-banner" id="errorMsg" hidden></div>
+
+        <div class="loader" id="loader" hidden>
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Simulating analysis with mock data...</p>
+        </div>
+      </section>
+
+      <section class="panel panel--results" aria-labelledby="resultsHeading">
+        <div class="panel__header">
+          <div>
+            <p class="panel__kicker">Mock Output</p>
+            <h2 id="resultsHeading">Analysis results</h2>
+          </div>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <h3>Ready for demo</h3>
+          <p>
+            Choose a demo scenario to see how the resume reviewer analyzes and provides feedback.
+          </p>
+          <ul class="empty-state__list">
+            <li>Select "Before" to see a weak resume with improvement opportunities</li>
+            <li>Select "After" to see the improved version with better scores</li>
+            <li>Compare the feedback to understand what makes a strong resume</li>
+          </ul>
+        </div>
+
+        <div id="resultsView" hidden>
+          <div class="results-layout">
+            <!-- Left Panel: Feedback -->
+            <div class="feedback-panel">
+              <div class="feedback-section">
+                <h3 class="feedback-section__title">Overall Fit Score</h3>
+                <div class="score-display">
+                  <div class="score-ring-large" id="scoreBadge">0</div>
+                  <div class="score-progress">
+                    <div class="score-progress-bar" id="scoreProgressBar"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="feedback-section">
+                <h3 class="feedback-section__title">Keyword Coverage</h3>
+                <div class="keyword-coverage">
+                  <div class="keyword-coverage__score" id="keywordScore">0%</div>
+                  <div class="keyword-chips" id="keywordChips"></div>
+                </div>
+              </div>
+
+              <div class="feedback-section">
+                <h3 class="feedback-section__title">Suggested Changes</h3>
+                <p class="feedback-hint">Click any item to jump to that section in the document</p>
+                <ol class="change-list" id="changeList"></ol>
+              </div>
+            </div>
+
+            <!-- Right Panel: Document View -->
+            <div class="document-panel">
+              <div class="document-legend">
+                <span class="legend-item">
+                  <span class="legend-dot legend-dot--red"></span>
+                  Needs improvement
+                </span>
+                <span class="legend-item">
+                  <span class="legend-dot legend-dot--yellow"></span>
+                  Minor changes
+                </span>
+                <span class="legend-item">
+                  <span class="legend-dot legend-dot--green"></span>
+                  Already strong
+                </span>
+              </div>
+              <div class="document-container">
+                <div class="document-page" id="documentView"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./scripts/demo.js"></script>
+</body>
+</html>
