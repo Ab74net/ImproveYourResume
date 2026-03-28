@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Checker | Resume Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/layout.css" />
+  <link rel="stylesheet" href="./styles/components.css" />
+  <link rel="stylesheet" href="./styles/demo-enhanced.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="app-nav">
+    <div class="app-nav-container">
+      <a href="index.html" class="nav-back">← Home</a>
+      <h1 class="nav-title">Resume Reviewer</h1>
+      <a href="demo.html" class="nav-demo-btn">MOCK DATA RUN</a>
+    </div>
+  </nav>
+
+  <!-- Main App Container -->
+  <div class="app-container">
+    <!-- Input Form (shown initially) -->
+    <div class="input-container" id="inputContainer">
+      <div class="app-panel app-panel--input">
+        <div class="panel-header">
+          <h2 class="panel-title">Build a Targeted Review</h2>
+          <span class="panel-badge">AI-Powered</span>
+        </div>
+
+        <div class="info-callout">
+          <p>Upload your resume and get instant feedback tailored to your target role and company. Your API key is secure on the server.</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="targetRole" class="form-label">Target Role</label>
+            <input 
+              type="text" 
+              id="targetRole" 
+              class="form-input" 
+              placeholder="e.g. Software Engineer Intern"
+              list="roleOptions"
+            />
+            <datalist id="roleOptions">
+              <option value="Software Engineer Intern">
+              <option value="QA Engineer">
+              <option value="Data Analyst">
+              <option value="Product Manager">
+              <option value="DevOps Engineer">
+              <option value="Security Engineer">
+            </datalist>
+          </div>
+          <div class="form-group">
+            <label for="targetCompany" class="form-label">Target Company</label>
+            <input 
+              type="text" 
+              id="targetCompany" 
+              class="form-input" 
+              placeholder="e.g. Google, Microsoft, Deloitte"
+              list="companyOptions"
+            />
+            <datalist id="companyOptions">
+              <option value="Amazon">
+              <option value="Google">
+              <option value="Meta">
+              <option value="Apple">
+              <option value="Netflix">
+              <option value="Microsoft">
+            </datalist>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label for="resumeText" class="form-label">Resume Content</label>
+            <span class="form-status" id="uploadStatus">Paste text or upload a PDF</span>
+          </div>
+          <div class="upload-toolbar">
+            <button type="button" class="btn btn--secondary" id="uploadResumeBtn">
+              Upload PDF
+            </button>
+            <input type="file" id="resumeFile" accept=".pdf" hidden />
+            <span class="form-hint">Recommended max file size: 4 MB</span>
+          </div>
+          <textarea
+            id="resumeText"
+            class="form-textarea"
+            placeholder="Paste your resume text here, or upload a PDF."
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="jobText" class="form-label">Job Description</label>
+          <div class="jd-options">
+            <button type="button" class="btn btn--secondary btn--small" id="useGenericJdBtn">
+              Skip — use generic
+            </button>
+            <span class="form-hint">Or paste your own job description below</span>
+          </div>
+          <textarea
+            id="jobText"
+            class="form-textarea"
+            placeholder="Paste the job description here, or skip for generic analysis."
+          ></textarea>
+        </div>
+
+        <button type="button" class="btn btn--primary" id="analyzeBtn">
+          ANALYZE RESUME FIT
+        </button>
+
+        <div class="error-banner" id="errorMsg" hidden></div>
+
+        <div class="loader" id="loader" hidden>
+          <div class="spinner"></div>
+          <p>Analyzing your resume and generating targeted suggestions...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results View (hidden initially, shown after analysis) -->
+    <div class="demo-container" id="resultsContainer" hidden>
+      <!-- Analysis Header -->
+      <div class="analysis-header">
+        <div class="job-badge">
+          <span class="job-badge__dot"></span>
+          <span class="job-badge__text" id="analysisTarget">Analysis Complete</span>
+        </div>
+        
+        <div class="score-overview">
+          <div class="score-circle">
+            <svg viewBox="0 0 120 120" class="score-svg">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#E5E5E5" stroke-width="12"/>
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#E5751F" stroke-width="12" 
+                      class="score-arc" id="scoreArc" stroke-dasharray="0 327" stroke-dashoffset="81.75" 
+                      transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="score-number" id="scoreNumber">0</div>
+          </div>
+          <div class="score-details">
+            <h2 class="score-title">Overall Resume Score</h2>
+            <div class="score-subscores" id="scoreSubscores">
+              <!-- Will be populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn--secondary" id="newAnalysisBtn" style="margin-top: 20px;">
+          ← New Analysis
+        </button>
+      </div>
+
+      <!-- Main Grid -->
+      <div class="demo-grid">
+        <!-- Left: Analysis Panel -->
+        <div class="analysis-sidebar">
+          <div class="analysis-card">
+            <h3 class="card-title">KEYWORD COVERAGE</h3>
+            
+            <div class="keyword-section">
+              <div class="keyword-label" id="matchedLabel">MATCHED (0/0)</div>
+              <div class="keyword-chips" id="matchedKeywords">
+                <!-- Will be populated dynamically -->
+              </div>
+            </div>
+
+            <div class="keyword-section">
+              <div class="keyword-label" id="missingLabel">MISSING (0/0)</div>
+              <div class="keyword-chips" id="missingKeywords">
+                <!-- Will be populated dynamically -->
+              </div>
+            </div>
+
+            <div class="progress-bar">
+              <div class="progress-fill" id="keywordProgress" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="analysis-card">
+            <h3 class="card-title">TOP ISSUES TO FIX</h3>
+            
+            <div class="issue-list" id="issueList">
+              <!-- Will be populated dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Resume Comparison -->
+        <div class="resume-comparison">
+          <!-- Original Resume -->
+          <div class="resume-section">
+            <div class="resume-header">
+              <h3 class="resume-title">ORIGINAL RESUME</h3>
+              <span class="resume-badge resume-badge--before" id="originalScore">Score: 0/100</span>
+            </div>
+            
+            <div class="resume-document" id="originalResume">
+              <!-- Will be populated dynamically -->
+            </div>
+          </div>
+
+          <!-- Improved Resume -->
+          <div class="resume-section">
+            <div class="resume-header">
+              <h3 class="resume-title">✨ SUGGESTED UPDATED RESUME</h3>
+              <span class="resume-badge resume-badge--after">Improved</span>
+              <button type="button" class="btn btn--secondary btn--small" id="downloadPdfBtn" style="margin-left: auto;">
+                Download PDF
+              </button>
+            </div>
+            
+            <div class="resume-document resume-document--improved" id="improvedResume">
+              <!-- Will be populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Legend -->
+      <div class="legend">
+        <div class="legend-item">
+          <span class="legend-dot legend-dot--red"></span>
+          <span class="legend-text">Needs significant improvement</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-dot--yellow"></span>
+          <span class="legend-text">Minor improvements needed</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-dot--green"></span>
+          <span class="legend-text">Strong - keep as is</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot legend-dot--blue"></span>
+          <span class="legend-text">New addition in improved version</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script type="module" src="./scripts/app.js"></script>
+</body>
+</html>

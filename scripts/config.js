@@ -20,7 +20,7 @@
 
 // Load API key from .env file (you'll need to manually set this)
 // Since this is a no-build frontend app, you need to manually copy your key here
-const API_KEY = 'PUTAPIHERE'; // Replace with your actual key from .env
+const API_KEY = ''; // Replace with your actual key from .env
 
 export const config = {
   // Get the configured API key

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Reviewer | Built for Hokies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/home.css" />
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">AI-POWERED | BUILT FOR HOKIES</div>
+        
+        <h1 class="hero-title">
+          <span class="hero-title__white">YOUR RESUME.</span>
+          <span class="hero-title__orange">LET'S REVIEW IT.</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+          Upload your resume and get an instant score, keyword analysis, and recruiter-style feedback powered by AI.
+        </p>
+        
+        <div class="upload-box">
+          <div class="upload-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+            </svg>
+          </div>
+          <div class="upload-text">
+            <div class="upload-title">Upload Your Resume</div>
+            <div class="upload-subtitle">Privacy guaranteed</div>
+          </div>
+        </div>
+        
+        <a href="app.html" class="hero-cta">CHECK MY RESUME</a>
+      </div>
+      
+      <div class="hero-cards">
+        <div class="resume-mockup resume-mockup--back">
+          <div class="mockup-avatar"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--short"></div>
+          <div class="mockup-line mockup-line--highlight"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--short"></div>
+        </div>
+        <div class="resume-mockup resume-mockup--front">
+          <div class="mockup-avatar"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--short"></div>
+          <div class="mockup-line"></div>
+          <div class="mockup-line mockup-line--highlight"></div>
+          <div class="mockup-line"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-footer">
+      <div class="hero-footer-container">
+        <p class="trusted-text">Trusted by Hokies applying to:</p>
+        <div class="company-chips">
+          <span class="company-chip">Google</span>
+          <span class="company-chip">Microsoft</span>
+          <span class="company-chip">Amazon</span>
+          <span class="company-chip">Deloitte</span>
+          <span class="company-chip">Goldman Sachs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Section 1: Resume Score -->
+  <section class="feature feature--light">
+    <div class="feature-container">
+      <div class="feature-content">
+        <div class="feature-label">RESUME SCORE</div>
+        <h2 class="feature-title">FIND OUT YOUR RESUME SCORE. SEE HOW YOU COMPARE.</h2>
+        <ul class="feature-list">
+          <li>See how your resume stacks up against strong applicants</li>
+          <li>Get a detailed section-by-section breakdown</li>
+          <li>Understand exactly where you're losing points</li>
+        </ul>
+        <div class="feature-ctas">
+          <a href="app.html" class="btn-try-it-feature">Try It Out</a>
+          <a href="#scoring-logic" class="more-info-link">More Info <span class="bounce-arrow">↓</span></a>
+        </div>
+      </div>
+      
+      <div class="feature-visual">
+        <div class="score-card">
+          <div class="donut-chart">
+            <svg viewBox="0 0 120 120" class="donut-svg">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#E5E5E5" stroke-width="12"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="#E5751F" stroke-width="12" 
+                      stroke-dasharray="195 314" stroke-dashoffset="78.5" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="donut-score">62</div>
+          </div>
+          <div class="score-breakdown">
+            <div class="score-row">
+              <span class="score-label">Structure</span>
+              <span class="score-value">74</span>
+            </div>
+            <div class="score-divider"></div>
+            <div class="score-row">
+              <span class="score-label">Impact</span>
+              <span class="score-value">58</span>
+            </div>
+            <div class="score-divider"></div>
+            <div class="score-row">
+              <span class="score-label">Keywords</span>
+              <span class="score-value">61</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Section 2: Scoring Logic -->
+  <section class="feature feature--maroon" id="scoring-logic">
+    <div class="feature-container feature-container--reverse">
+      <div class="feature-visual">
+        <div class="keyword-card">
+          <div class="keyword-section">
+            <div class="keyword-section-title">MATCHED</div>
+            <div class="keyword-chips">
+              <span class="keyword-chip keyword-chip--matched">AWS</span>
+              <span class="keyword-chip keyword-chip--matched">Python</span>
+              <span class="keyword-chip keyword-chip--matched">Testing</span>
+            </div>
+          </div>
+          <div class="keyword-section">
+            <div class="keyword-section-title">MISSING</div>
+            <div class="keyword-chips">
+              <span class="keyword-chip keyword-chip--missing">CI/CD</span>
+              <span class="keyword-chip keyword-chip--missing">Leadership</span>
+              <span class="keyword-chip keyword-chip--missing">Metrics</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="feature-content feature-content--white">
+        <div class="feature-label feature-label--light">SCORING LOGIC</div>
+        <h2 class="feature-title feature-title--white">HOW DO WE CALCULATE YOUR SCORE?</h2>
+        <ul class="feature-list feature-list--white">
+          <li>Does your resume include all the right sections?</li>
+          <li>Are you using strong action verbs and avoiding filler words?</li>
+          <li>Are your keywords aligned with the job you want?</li>
+        </ul>
+        <a href="app.html" class="feature-cta feature-cta--orange">Review my resume now →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Section 3: Line-by-Line Feedback -->
+  <section class="feature feature--light">
+    <div class="feature-container">
+      <div class="feature-content">
+        <div class="feature-label">LINE-BY-LINE FEEDBACK</div>
+        <h2 class="feature-title">SEE EXACTLY WHAT TO FIX AND WHERE.</h2>
+        <ul class="feature-list">
+          <li>Traffic-light highlighting shows what's strong, weak, or needs work</li>
+          <li>Click any suggestion to jump directly to that line in your resume</li>
+          <li>Top 5 priority fixes with no information overload</li>
+        </ul>
+        <a href="app.html" class="feature-cta feature-cta--maroon">See the document review →</a>
+      </div>
+      
+      <div class="feature-visual">
+        <div class="highlight-card">
+          <div class="highlight-bar highlight-bar--green"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+          <div class="highlight-bar highlight-bar--orange"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+          <div class="highlight-bar highlight-bar--red"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+          <div class="highlight-bar highlight-bar--orange"></div>
+          <div class="highlight-bar highlight-bar--gray"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bottom-cta">
+    <a href="app.html" class="btn-try-it">Try It Out</a>
+  </section>
+
+  <script>
+    // Smooth scroll for More Info link
+    document.querySelector('.more-info-link')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.querySelector('#scoring-logic')?.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+/* App Navbar */
+.app-nav {
+  background: var(--vt-maroon);
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav-back {
+  color: var(--white);
+  font-weight: 600;
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.nav-back:hover {
+  color: var(--vt-orange);
+}
+
+.nav-title {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--white);
+  flex: 1;
+}
+
+.nav-demo-btn {
+  background: var(--vt-orange);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.nav-demo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(229, 117, 31, 0.3);
+}
+
+/* App Container */
+.app-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.app-panel {
+  background: var(--white);
+  border-radius: 0;
+  padding: 40px;
+  box-shadow: var(--shadow-soft);
+}
+
+.app-panel--input {
+  position: sticky;
+  top: 100px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.panel-title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--neutral-dark);
+}
+
+.panel-badge {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--vt-orange);
+  color: var(--white);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .app-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .app-panel--input {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 20px;
+  }
+  
+  .app-panel {
+    padding: 24px;
+  }
+  
+  .app-nav-container {
+    padding: 0 20px;
+  }
+}
